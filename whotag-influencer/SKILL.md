@@ -32,7 +32,7 @@ Tool parameters and response schemas are documented on the tools themselves and 
 | **Buckets**         | `list_buckets`           | List buckets                                                                                |
 |                     | `create_bucket`          | Create a new bucket                                                                         |
 |                     | `delete_bucket`          | Delete a bucket                                                                             |
-|                     | `get_bucket_influencers` | View influencers in a bucket (sort/paginate)                                                |
+|                     | `get_bucket_influencers` | View influencers in a bucket — one `platform` per call, ask the user which before calling   |
 |                     | `add_to_bucket`          | Add a single influencer to a bucket                                                         |
 |                     | `bulk_add_to_bucket`     | Add many influencers to a bucket at once                                                    |
 |                     | `remove_from_bucket`     | Remove an influencer from a bucket                                                          |
@@ -287,6 +287,8 @@ search_influencers(query, platform="insta")
 ```
 
 **Platform comparison:** call separately, then compare the two result sets.
+
+**`get_bucket_influencers` follows the same per-platform rule** — each call returns only the requested platform's saved influencers. Unlike `search_influencers` (where `"insta"` is a reasonable default when the user didn't specify), `get_bucket_influencers` has **no default**: ask the user which platform of the bucket to view before calling, and call twice if they want both.
 
 ---
 
